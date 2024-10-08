@@ -231,7 +231,7 @@ func (v Val[T]) MarshalJSON() ([]byte, error) {
 // because this same package even with the json fork cannot consume a null.
 //
 // In order to achieve symmetry in encoding/decoding we'll quietly omit nil
-// maps, slices, and ptrs as it was likely a mistake to try to .From(nil)
+// maps, slices, and pointers as it was likely a mistake to try to .From(nil)
 // for this type of value anyway.
 func (v Val[T]) MarshalJSONIsZero() bool {
 	if v.state == StateUnset {

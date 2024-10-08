@@ -403,7 +403,7 @@ func (v *Val[T]) UnmarshalText(text []byte) error {
 // and failing that it will attempt to do some reflect to convert between
 // the types to hit common cases like Go primitives.
 //
-// Omitnull will add a prepend a single byte to the value's binary
+// Omitnull will add a prepend single byte to the value's binary
 // encoding track the state (0 for null, 1 for set) when it is not omitted.
 func (v Val[T]) MarshalBinary() ([]byte, error) {
 	switch v.state {
