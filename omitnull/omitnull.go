@@ -519,13 +519,13 @@ func (v Val[T]) Value() (driver.Value, error) {
 	return opt.ToDriverValue(v.value)
 }
 func (v Val[T]) IfSet(then func(t T)) {
-	if v.IsUnset() && then != nil {
+	if v.IsSet() && then != nil {
 		then(v.value)
 	}
 }
 
 func (v Val[T]) IfUnset(then func(t T)) {
-	if v.IsSet() && then != nil {
+	if v.IsUnset() && then != nil {
 		then(v.value)
 	}
 }
