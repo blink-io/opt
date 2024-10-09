@@ -5,7 +5,7 @@ import (
 	"encoding"
 	"reflect"
 
-	"github.com/aarondl/opt/internal/globaldata"
+	"github.com/blink-io/opt/internal/globaldata"
 )
 
 // ToDriverValue generates the appropriate driver.Value

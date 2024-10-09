@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/aarondl/opt"
+	"github.com/blink-io/opt"
 )
 
 func TestConstruction(t *testing.T) {

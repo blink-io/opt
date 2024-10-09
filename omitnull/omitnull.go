@@ -9,10 +9,10 @@ import (
 	"errors"
 	"reflect"
 
-	"github.com/aarondl/opt"
-	"github.com/aarondl/opt/internal/globaldata"
-	"github.com/aarondl/opt/null"
-	"github.com/aarondl/opt/omit"
+	"github.com/blink-io/opt"
+	"github.com/blink-io/opt/internal/globaldata"
+	"github.com/blink-io/opt/null"
+	"github.com/blink-io/opt/omit"
 )
 
 // state is the state of the nullable object
