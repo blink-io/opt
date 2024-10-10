@@ -394,9 +394,9 @@ func (v Val[T]) IfSet(then func(t T)) {
 	}
 }
 
-func (v Val[T]) IfNull(then func(t T)) {
+func (v Val[T]) IfNull(then func()) {
 	if v.IsNull() && then != nil {
-		then(v.value)
+		then()
 	}
 }
 

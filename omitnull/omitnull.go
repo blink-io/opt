@@ -524,15 +524,15 @@ func (v Val[T]) IfSet(then func(t T)) {
 	}
 }
 
-func (v Val[T]) IfUnset(then func(t T)) {
+func (v Val[T]) IfUnset(then func()) {
 	if v.IsUnset() && then != nil {
-		then(v.value)
+		then()
 	}
 }
 
-func (v Val[T]) IfNull(then func(t T)) {
+func (v Val[T]) IfNull(then func()) {
 	if v.IsNull() && then != nil {
-		then(v.value)
+		then()
 	}
 }
 
