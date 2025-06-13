@@ -1,4 +1,2 @@
-github.com/aarondl/json v0.0.0-20221020222930-8b0db17ef1bf h1:+edM69bH/X6JpYPmJYBRLanAMe1V5yRXYU3hHUovGcE=
-github.com/aarondl/json v0.0.0-20221020222930-8b0db17ef1bf/go.mod h1:FZqLhJSj2tg0ZN48GB1zvj00+ZYcHPqgsC7yzcgCq6k=
-github.com/aarondl/opt v0.0.0-20240623220848-083f18ab9536 h1:vhpjulzH5Tr4S3uJ3Y/9pNL481kPq5ERj13ceAW0/uE=
-github.com/aarondl/opt v0.0.0-20240623220848-083f18ab9536/go.mod h1:l4/5NZtYd/SIohsFhaJQQe+sPOTG22furpZ5FvcYOzk=
+github.com/aarondl/opt v0.0.0-20250607033636-982744e1bd65 h1:lbdPe4LBNmNDzeQFwNhEc88w90841qv737MI4+aXSYU=
+github.com/aarondl/opt v0.0.0-20250607033636-982744e1bd65/go.mod h1:+xKBXrTAUOvrDXO5PRwIr4E1wciHY3Glgl+6OkCXknU=

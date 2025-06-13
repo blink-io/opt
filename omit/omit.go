@@ -162,8 +162,8 @@ func (v *Val[T]) Unset() {
 	v.state = StateUnset
 }
 
-// IsSet returns true if v contains a non-null value
-func (v Val[T]) IsSet() bool {
+// IsValue returns true if v contains a value (ie. not omitted/unset)
+func (v Val[T]) IsValue() bool {
 	return v.state == StateSet
 }
 
@@ -222,6 +222,16 @@ func (v Val[T]) MarshalJSON() ([]byte, error) {
 // MarshalJSONIsZero returns true if this value should be omitted by the json
 // marshaler.
 //
+// Deprecated: This method was necessary to support true omitting of values
+// using a json fork, since then the std library has added support for this
+// and so we no longer need this method.
+func (v Val[T]) MarshalJSONIsZero() bool {
+	return v.IsZero()
+}
+
+// IsZero returns true if this value should be omitted by the json
+// marshaler.
+//
 // There is a special case in which we omit the value even if the value is `set`
 // which is when the value is going to write out `nil` (pointers, maps
 // and slices that are nil) when marshaled.
@@ -231,9 +241,9 @@ func (v Val[T]) MarshalJSON() ([]byte, error) {
 // because this same package even with the json fork cannot consume a null.
 //
 // In order to achieve symmetry in encoding/decoding we'll quietly omit nil
-// maps, slices, and pointers as it was likely a mistake to try to .From(nil)
+// maps, slices, and ptrs as it was likely a mistake to try to .From(nil)
 // for this type of value anyway.
-func (v Val[T]) MarshalJSONIsZero() bool {
+func (v Val[T]) IsZero() bool {
 	if v.state == StateUnset {
 		return true
 	}
@@ -389,18 +399,6 @@ func (v Val[T]) Value() (driver.Value, error) {
 	}
 
 	return opt.ToDriverValue(v.value)
-}
-
-func (v Val[T]) IfSet(then func(t T)) {
-	if v.IsSet() && then != nil {
-		then(v.value)
-	}
-}
-
-func (v Val[T]) IfUnset(then func()) {
-	if v.IsUnset() && then != nil {
-		then()
-	}
 }
 
 // Equal compares two nullable values and returns true if they are equal.

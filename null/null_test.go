@@ -17,7 +17,7 @@ func TestConstruction(t *testing.T) {
 
 	val := From("hello")
 	checkState(t, val, StateSet)
-	if !val.IsSet() {
+	if !val.IsValue() {
 		t.Error("should be set")
 	}
 
@@ -385,24 +385,6 @@ func TestStateStringer(t *testing.T) {
 		}
 	}()
 	_ = state(99).String()
-}
-
-func TestIfSet(t *testing.T) {
-	str := "Hello"
-	setOpt := From(str)
-	var unsetOpt Val[string]
-
-	t.Run("IfSet 1", func(t *testing.T) {
-		setOpt.IfSet(func(s string) {
-			t.Logf("str: %s", str)
-		})
-	})
-
-	t.Run("IfSet 2", func(t *testing.T) {
-		unsetOpt.IfSet(func(s string) {
-			t.Error("expected nothing")
-		})
-	})
 }
 
 func checkState[T any](t *testing.T, val Val[T], state state) {

@@ -170,7 +170,7 @@ func (v Val[T]) MustGetOmit() omit.Val[T] {
 
 // Or returns v or other depending on their states. In general
 // set > null > unset and therefore the one with the state highest in that
-// area will win out.
+// hierarchy will win out.
 //
 //	v     | other | result
 //	------------- | -------
@@ -244,8 +244,9 @@ func (v *Val[T]) SetPtr(val *T) {
 	v.state = StateSet
 }
 
-// IsSet returns true if v contains a non-null value
-func (v Val[T]) IsSet() bool {
+// IsValue returns true if v contains a value, meaning not null or unset
+// as both of those are various versions of absence of a value.
+func (v Val[T]) IsValue() bool {
 	return v.state == StateSet
 }
 
@@ -279,7 +280,17 @@ func (v Val[T]) MustPtr() *T {
 
 // MarshalJSONIsZero returns true if this value should be omitted by the json
 // marshaler.
+//
+// Deprecated: This method was necessary to support true omitting of values
+// using a json fork, since then the std library has added support for this
+// and so we no longer need this method.
 func (v Val[T]) MarshalJSONIsZero() bool {
+	return v.IsZero()
+}
+
+// IsZero returns true if the value is unset and should be omitted by json.
+// This is used with the `omitzero` flag in the std library.
+func (v Val[T]) IsZero() bool {
 	return v.state == StateUnset
 }
 
@@ -403,7 +414,7 @@ func (v *Val[T]) UnmarshalText(text []byte) error {
 // and failing that it will attempt to do some reflect to convert between
 // the types to hit common cases like Go primitives.
 //
-// Omitnull will add a prepend single byte to the value's binary
+// Omitnull will add a prepend a single byte to the value's binary
 // encoding track the state (0 for null, 1 for set) when it is not omitted.
 func (v Val[T]) MarshalBinary() ([]byte, error) {
 	switch v.state {
@@ -517,23 +528,6 @@ func (v Val[T]) Value() (driver.Value, error) {
 	}
 
 	return opt.ToDriverValue(v.value)
-}
-func (v Val[T]) IfSet(then func(t T)) {
-	if v.IsSet() && then != nil {
-		then(v.value)
-	}
-}
-
-func (v Val[T]) IfUnset(then func()) {
-	if v.IsUnset() && then != nil {
-		then()
-	}
-}
-
-func (v Val[T]) IfNull(then func()) {
-	if v.IsNull() && then != nil {
-		then()
-	}
 }
 
 // Equal compares two nullable values and returns true if they are equal.
