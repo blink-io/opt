@@ -34,7 +34,7 @@ func (s state) String() string {
 }
 
 // Val allows representing a value with a state of "unset" or "set".
-// Its zero value is usfel and initially "unset".
+// Its zero value is useful and initially "unset".
 type Val[T any] struct {
 	value T
 	state state

@@ -39,7 +39,7 @@ func (s state) String() string {
 }
 
 // Val allows representing a value with a state of "unset", "null", or
-// "set". Its zero value is usfel and initially "unset".
+// "set". Its zero value is useful and initially "unset".
 type Val[T any] struct {
 	value T
 	state state
@@ -332,7 +332,7 @@ func (v Val[T]) MarshalJSON() ([]byte, error) {
 // value is set it will prepend '1' to the value's text representation.
 //
 // That's also to say that there is no compatibility with the outside
-// world. A value that is Unmarshal'd by this package must have been
+// world. A value that is Unmarshalled by this package must have been
 // produced by this package to encode the text properly.
 func (v Val[T]) MarshalText() ([]byte, error) {
 	switch v.state {
