@@ -34,7 +34,7 @@ func (s state) String() string {
 }
 
 // Val allows representing a value with a state of "null" or "set".
-// Its zero value is usfel and initially "null".
+// Its zero value is useful and initially "null".
 type Val[T any] struct {
 	value T
 	state state
@@ -293,7 +293,7 @@ func (v *Val[T]) UnmarshalText(text []byte) error {
 
 // MarshalBinary tries to encode the value in binary. If it finds
 // type that implements encoding.BinaryMarshaler it will use that,
-// it will fallback to encoding.TextMarshaler if that is implemented,
+// it will fall back to encoding.TextMarshaler if that is implemented,
 // and failing that it will attempt to do some reflect to convert between
 // the types to hit common cases like Go primitives.
 func (v Val[T]) MarshalBinary() ([]byte, error) {
