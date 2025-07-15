@@ -260,6 +260,24 @@ func (v Val[T]) IsUnset() bool {
 	return v.state == StateUnset
 }
 
+func (v Val[T]) IfValue(then func(v T)) {
+	if v.state == StateSet && then != nil {
+		then(v.value)
+	}
+}
+
+func (v Val[T]) IfUnset(then func()) {
+	if v.state == StateUnset && then != nil {
+		then()
+	}
+}
+
+func (v Val[T]) IfNull(then func()) {
+	if v.state == StateNull && then != nil {
+		then()
+	}
+}
+
 // State retrieves the internal state, mostly useful for testing.
 func (v Val[T]) State() state {
 	return v.state

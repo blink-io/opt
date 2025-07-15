@@ -3,6 +3,7 @@ package opt
 import (
 	"database/sql/driver"
 	"encoding"
+	"fmt"
 	"reflect"
 
 	"github.com/blink-io/opt/internal/globaldata"

@@ -183,6 +183,18 @@ func (v Val[T]) IsNull() bool {
 	return v.state == StateNull
 }
 
+func (v Val[T]) IfValue(then func(v T)) {
+	if v.state == StateSet && then != nil {
+		then(v.value)
+	}
+}
+
+func (v Val[T]) IfNull(then func()) {
+	if v.state == StateNull && then != nil {
+		then()
+	}
+}
+
 // Ptr returns a pointer to the value, or nil if null.
 func (v Val[T]) Ptr() *T {
 	if v.state == StateSet {
@@ -293,7 +305,7 @@ func (v *Val[T]) UnmarshalText(text []byte) error {
 
 // MarshalBinary tries to encode the value in binary. If it finds
 // type that implements encoding.BinaryMarshaler it will use that,
-// it will fall back to encoding.TextMarshaler if that is implemented,
+// it will fallback to encoding.TextMarshaler if that is implemented,
 // and failing that it will attempt to do some reflect to convert between
 // the types to hit common cases like Go primitives.
 func (v Val[T]) MarshalBinary() ([]byte, error) {
