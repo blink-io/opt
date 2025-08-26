@@ -312,6 +312,12 @@ func (v Val[T]) IsZero() bool {
 	return v.state == StateUnset
 }
 
+func (v Val[T]) IfZero(then func()) {
+	if v.state == StateUnset && then != nil {
+		then()
+	}
+}
+
 // UnmarshalJSON implements json.Unmarshaler
 func (v *Val[T]) UnmarshalJSON(data []byte) error {
 	switch {

@@ -270,6 +270,12 @@ func (v Val[T]) IsZero() bool {
 	return false
 }
 
+func (v Val[T]) IfZero(then func()) {
+	if v.IsZero() {
+		then()
+	}
+}
+
 // MarshalText implements encoding.TextMarshaler.
 func (v Val[T]) MarshalText() ([]byte, error) {
 	if v.state != StateSet {
